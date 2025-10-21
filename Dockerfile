@@ -28,3 +28,4 @@ EXPOSE 8080
 
 # Run Streamlit app
 ENTRYPOINT ["streamlit", "run", "new_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+
