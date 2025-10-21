@@ -29,7 +29,7 @@ def load_models():
     torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
     # Whisper
-    whisper_id = "distil-whisper/distil-small.en"
+    whisper_id = "distil-whisper/distil-medium.en"
     st.info("Loading Whisper model... (first time only)")
     asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True)
     asr_model.to(device)
@@ -181,3 +181,4 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
