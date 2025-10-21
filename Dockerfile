@@ -7,6 +7,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
 
+# Accept Hugging Face token at build time
+ARG HF_TOKEN
+ENV HF_TOKEN=${HF_TOKEN}
+
 # Install system dependencies (Python + FFmpeg + Git)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip ffmpeg git \
@@ -38,3 +42,4 @@ EXPOSE 8080
 # 5️⃣ Launch Streamlit app
 # ====================================================
 ENTRYPOINT ["streamlit", "run", "new_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+
