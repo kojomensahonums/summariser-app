@@ -1,0 +1,13 @@
+streamlit>=1.38.0
+requests
+pydantic
+pydub
+ffmpeg
+soundfile
+torchaudio
+transformers>=4.44.0
+huggingface_hub
+accelerate>=0.33.0
+torch>=2.3.0
+python-multipart
+tqdm
