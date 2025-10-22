@@ -31,7 +31,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 3️⃣ Pre-download models during build
 # ====================================================
 COPY preload_models.py .
-RUN python3 preload_models.py
+# RUN python3 preload_models.py
 
 # ====================================================
 # 4️⃣ Copy application code
@@ -45,6 +45,7 @@ EXPOSE 8080
 # 5️⃣ Launch Streamlit app
 # ====================================================
 ENTRYPOINT ["streamlit", "run", "new_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+
 
 
 
