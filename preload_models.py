@@ -9,7 +9,7 @@ whisper_id = "distil-whisper/distil-small.en"
 AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id)
 AutoProcessor.from_pretrained(whisper_id)
 
-# Llama 2
+# Phi-2
 llm_id = "microsoft/phi-2"
 AutoTokenizer.from_pretrained(llm_id)
 AutoModelForCausalLM.from_pretrained(llm_id)
