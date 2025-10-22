@@ -9,6 +9,6 @@ secrets:
 images:
   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
 options:
-  logging: CLOUD_LOGGING_ONLY
-  # defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+  # logging: CLOUD_LOGGING_ONLY
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
