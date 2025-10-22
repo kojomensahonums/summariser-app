@@ -17,6 +17,6 @@ AutoProcessor.from_pretrained(whisper_id)
 
 # Mixtral
 llm_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-# AutoTokenizer.from_pretrained(llm_id)
+AutoTokenizer.from_pretrained(llm_id)
 AutoModelForCausalLM.from_pretrained(llm_id)
 print("✅ Model pre-download complete.")
