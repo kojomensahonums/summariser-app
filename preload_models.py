@@ -10,7 +10,7 @@ AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id)
 AutoProcessor.from_pretrained(whisper_id)
 
 # Llama 2
-llm_id = "unsloth/llama-2-7b-chat"
+llm_id = "microsoft/phi-2"
 AutoTokenizer.from_pretrained(llm_id)
 AutoModelForCausalLM.from_pretrained(llm_id)
 print("✅ Model pre-download complete.")
