@@ -4,7 +4,7 @@ steps:
     secretEnv: ['HF_TOKEN']
 secrets:
   - secretEnv:
-      HF_TOKEN: projects/269347135162/secrets/HF_TOKEN/versions/1
+      HF_TOKEN: HF_TOKEN:1
 images:
   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
 options:
