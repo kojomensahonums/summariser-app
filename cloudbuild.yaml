@@ -2,9 +2,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
     secretEnv: ['HF_TOKEN']
-secrets:
-  - secretEnv:
-    HF_TOKEN: projects/269347135162/secrets/HF_TOKEN/versions/1 
+availableSecrets:
+  secretManager:
+    - versionName: projects/269347135162/secrets/HF_TOKEN/versions/1
+      env: 'HF_TOKEN'
 images:
   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
 options:
