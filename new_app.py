@@ -30,7 +30,7 @@ def load_models():
     torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
     # Whisper
-    whisper_id = "distil-whisper/distil-medium.en"
+    whisper_id = "distil-whisper/distil-small.en"
     st.info("Loading Whisper model... (first time only)")
     asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True)
     asr_model.to(device)
@@ -47,11 +47,11 @@ def load_models():
     )
 
     # LLM
-    st.info("Loading Command-R 7B model... (first time only)")
+    st.info("Loading Microsoft Phi-2 model... (first time only)")
     # llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
     # llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
     # llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
-    llm_id = "unsloth/llama-2-7b-chat"
+    llm_id = "microsoft/phi-2"
     llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
     llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
 
@@ -185,6 +185,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
