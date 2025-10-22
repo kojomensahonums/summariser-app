@@ -16,7 +16,7 @@ AutoProcessor.from_pretrained(whisper_id)
 # print("✅ Model pre-download complete.")
 
 # Llama 3 Quantized
-llm_id = "unsloth/llama-3-8b-bnb-4bit"
+llm_id = "unsloth/llama-2-7b-chat"
 AutoTokenizer.from_pretrained(llm_id)
 AutoModelForCausalLM.from_pretrained(llm_id)
 print("✅ Model pre-download complete.")
