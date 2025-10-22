@@ -51,7 +51,7 @@ def load_models():
     # llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
     # llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
     # llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
-    llm_id = "unsloth/llama-3-8b-bnb-4bit"
+    llm_id = "unsloth/llama-2-7b-chat"
     llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
     llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
 
@@ -185,6 +185,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
