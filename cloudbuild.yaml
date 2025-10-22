@@ -1,35 +1,14 @@
-# steps:
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
-# images:
-#   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
-# options:
-#   logging: CLOUD_LOGGING_ONLY
-#   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
-
-  # cloudbuild.yaml
 steps:
-  - name: gcr.io/cloud-builders/docker
-    args: [
-      "build",
-      "-t",
-      "gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA",
-      "."
-    ]
-    secretEnv: ["HF_TOKEN"]
-
-# Reference the HF_TOKEN from Secret Manager
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
+    secretEnv: ['HF_TOKEN']
 secrets:
-  - secretEnv:
+  - kmsKeyName: projects/ambient-cubist-393519/locations/eur3/keyRings/hface-keyring/cryptoKeys/hface-key
+    secretEnv:
       HF_TOKEN: projects/269347135162/secrets/HF_TOKEN/versions/1
-
-# Images to push after build
 images:
-  - gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA
-
-# Optional: Cloud Build logging
+  - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY
-  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
-
+  # defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
