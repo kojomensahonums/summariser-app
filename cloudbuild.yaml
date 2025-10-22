@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app@sha256:ebb33571d99eb7f08063cbbf23f6c6588caaf369ded863352c62fb41fcd58b63', '.']
+    args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:latest', '.']
     
 images:
   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
