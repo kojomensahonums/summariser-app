@@ -24,41 +24,41 @@ This app will transcribe, summarize, or generate promo content — all in one pl
 # ------------------------------
 # Load Models (cached)
 # ------------------------------
-# @st.cache_resource
-# def load_models():
-#     device = "cuda" if torch.cuda.is_available() else "cpu"
-#     torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+@st.cache_resource
+def load_models():
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
-#     # Whisper
-#     whisper_id = "distil-whisper/distil-medium.en"
-#     st.info("Loading Whisper model... (first time only)")
-#     asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True)
-#     asr_model.to(device)
-#     processor = AutoProcessor.from_pretrained(whisper_id)
-#     pipe = pipeline(
-#         "automatic-speech-recognition",
-#         model=asr_model,
-#         tokenizer=processor.tokenizer,
-#         feature_extractor=processor.feature_extractor,
-#         chunk_length_s=25,
-#         batch_size=16,
-#         torch_dtype=torch_dtype,
-#         device=device,
-#     )
+    # Whisper
+    whisper_id = "distil-whisper/distil-medium.en"
+    st.info("Loading Whisper model... (first time only)")
+    asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True)
+    asr_model.to(device)
+    processor = AutoProcessor.from_pretrained(whisper_id)
+    pipe = pipeline(
+        "automatic-speech-recognition",
+        model=asr_model,
+        tokenizer=processor.tokenizer,
+        feature_extractor=processor.feature_extractor,
+        chunk_length_s=25,
+        batch_size=16,
+        torch_dtype=torch_dtype,
+        device=device,
+    )
 
-#     # LLM
-#     st.info("Loading Command-R 7B model... (first time only)")
-#     # llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
-#     # llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
-#     # llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
-#     llm_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-#     llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
-#     llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
+    # LLM
+    st.info("Loading Command-R 7B model... (first time only)")
+    # llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
+    # llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
+    # llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
+    llm_id = "unsloth/llama-3-8b-bnb-4bit"
+    llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
+    llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
 
-#     return pipe, llm_tokenizer, llm_model
+    return pipe, llm_tokenizer, llm_model
 
 # Call the function to load models
-pipe, llm_tokenizer, llm_model = load_models_from_gcs()#load_models()
+pipe, llm_tokenizer, llm_model = load_models() # load_models_from_gcs()
 
 
 # ------------------------------
@@ -185,6 +185,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
