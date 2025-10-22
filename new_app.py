@@ -48,9 +48,6 @@ def load_models():
 
     # LLM
     st.info("Loading Microsoft Phi-2 model... (first time only)")
-    # llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
-    # llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
-    # llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
     llm_id = "microsoft/phi-2"
     llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
     llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
@@ -58,7 +55,7 @@ def load_models():
     return pipe, llm_tokenizer, llm_model
 
 # Call the function to load models
-pipe, llm_tokenizer, llm_model = load_models() # load_models_from_gcs()
+pipe, llm_tokenizer, llm_model = load_models()
 
 
 # ------------------------------
@@ -185,6 +182,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
