@@ -50,7 +50,7 @@ def load_models():
     st.info("Loading Microsoft Phi-2 model... (first time only)")
     llm_id = "microsoft/phi-2"
     llm_tokenizer = AutoTokenizer.from_pretrained(llm_id)
-    llm_model = AutoModelForCausalLM.from_pretrained(llm_id, torch_dtype="float16", device_map="auto")
+    llm_model = AutoModelForCausalLM.from_pretrained(llm_id, dtype="float16", device_map="auto")
 
     return pipe, llm_tokenizer, llm_model
 
@@ -83,20 +83,25 @@ def download_audio_from_url(url):
         return None
 
 def generate_with_llm(prompt, context):
-    messages = [
-        {"role": "system", "content": context},
-        {"role": "user", "content": prompt}
-    ]
-    input_ids = llm_tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_tensors="pt")
-    gen_tokens = llm_model.generate(
-        input_ids,
-        max_new_tokens=250,
-        do_sample=True,
-        temperature=0.7,
-        top_p=0.9,
-    )
-    enhanced = llm_tokenizer.decode(gen_tokens[0], skip_special_tokens=True)
-    return enhanced.strip()
+    # Combine context + user prompt manually
+    full_prompt = f"{context}\n\nUser request:\n{prompt}\n\nAnswer:"
+    
+    inputs = llm_tokenizer(full_prompt, return_tensors="pt").to(llm_model.device)
+    
+    with torch.no_grad():
+        outputs = llm_model.generate(
+            **inputs,
+            max_new_tokens=250,
+            do_sample=True,
+            temperature=0.7,
+            top_p=0.9,
+            pad_token_id=llm_tokenizer.eos_token_id,
+        )
+    
+    generated_text = llm_tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
+    # Clean out the input part from the output
+    return generated_text[len(full_prompt):].strip()
 
 def summarise_output(transcript):
     context = "This is a transcript of a podcast or conversation. Summarize it clearly and concisely."
