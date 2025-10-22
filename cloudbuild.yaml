@@ -1,3 +1,6 @@
+secrets:
+  - secretEnv:
+      HF_TOKEN: projects/269347135162/secrets/HF_TOKEN/versions/1
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
