@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64"
 
-# Install google-cloud-storage for GCS downloads
-RUN pip install --no-cache-dir google-cloud-storage
+# # Install google-cloud-storage for GCS downloads
+# RUN pip install --no-cache-dir google-cloud-storage
 
 # Accept Hugging Face token at build time
 ARG HF_TOKEN
@@ -45,5 +45,6 @@ EXPOSE 8080
 # 5️⃣ Launch Streamlit app
 # ====================================================
 ENTRYPOINT ["streamlit", "run", "new_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+
 
 
