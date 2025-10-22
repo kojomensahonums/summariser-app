@@ -3,9 +3,8 @@ steps:
     args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
     secretEnv: ['HF_TOKEN']
 secrets:
-  - kmsKeyName: projects/ambient-cubist-393519/locations/eur3/keyRings/hface-keyring/cryptoKeys/hface-key
-    secretEnv:
-      HF_TOKEN: projects/269347135162/secrets/HF_TOKEN
+  - secretEnv:
+      HF_TOKEN: projects/269347135162/secrets/HF_TOKEN/versions/latest
 images:
   - 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA'
 options:
