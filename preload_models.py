@@ -9,8 +9,14 @@ whisper_id = "distil-whisper/distil-medium.en"
 AutoModelForSpeechSeq2Seq.from_pretrained(whisper_id)
 AutoProcessor.from_pretrained(whisper_id)
 
-# Cohere LLM
-llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
-AutoTokenizer.from_pretrained(llm_id, use_auth_token=hf_token)
-AutoModelForCausalLM.from_pretrained(llm_id, use_auth_token=hf_token)
+# # Cohere LLM
+# llm_id = "CohereLabs/c4ai-command-r7b-12-2024"
+# AutoTokenizer.from_pretrained(llm_id, use_auth_token=hf_token)
+# AutoModelForCausalLM.from_pretrained(llm_id, use_auth_token=hf_token)
+# print("✅ Model pre-download complete.")
+
+# Mixtral
+llm_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+# AutoTokenizer.from_pretrained(llm_id)
+AutoModelForCausalLM.from_pretrained(llm_id)
 print("✅ Model pre-download complete.")
