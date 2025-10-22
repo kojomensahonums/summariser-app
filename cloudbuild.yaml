@@ -1,6 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/ambient-cubist-393519/github.com/kojomensahonums/summariser-app:$COMMIT_SHA', '.']
+    hf_args: ['-c', 'pip install huggingface_hub && huggingface-cli login --token $$_HF_TOKEN']
     secretEnv: ['HF_TOKEN']
 availableSecrets:
   secretManager:
