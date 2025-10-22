@@ -10,4 +10,6 @@ huggingface_hub
 accelerate>=0.33.0
 torch>=2.3.0
 python-multipart
+bitsandbytes==0.41.1
 tqdm
+sentencepiece
