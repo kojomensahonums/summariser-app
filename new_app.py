@@ -6,7 +6,7 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline, Aut
 from pydub import AudioSegment, effects
 from tempfile import NamedTemporaryFile
 import os
-# from preload_models import load_models_from_gcs  # Import the new function
+from urllib.parse import urlparse
 
 # ------------------------------
 # Page setup
@@ -215,6 +215,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
