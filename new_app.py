@@ -66,21 +66,49 @@ def transcribe_audio(audio_path):
     return result["text"]
 
 
-def download_audio_from_url(url):
+def download_audio_from_url(url: str, output_dir: str = "downloads") -> str:
+    """
+    Downloads an audio file from a direct URL and saves it locally.
+
+    Args:
+        url (str): Direct link to the audio file (e.g. MP3, WAV, FLAC).
+        output_dir (str): Directory to save the downloaded file.
+
+    Returns:
+        str: Path to the downloaded audio file.
+
+    Raises:
+        ValueError: If the URL does not point to a valid audio file.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Extract filename from URL
+    parsed = urlparse(url)
+    filename = os.path.basename(parsed.path)
+    if not filename or '.' not in filename:
+        raise ValueError("❌ Invalid URL — cannot determine file name or format.")
+
+    file_path = os.path.join(output_dir, filename)
+
+    # Validate extension
+    if not filename.lower().endswith(('.mp3', '.wav', '.flac', '.ogg', '.m4a')):
+        raise ValueError("❌ Unsupported file format. Must be mp3, wav, flac, ogg, or m4a.")
+
+    # Stream and download
     try:
-        response = requests.get(url)
-        if response.status_code != 200:
-            st.error("Failed to download audio from the link.")
-            return None
-        
-        audio_data = BytesIO(response.content)
-        audio = AudioSegment.from_file(audio_data)
-        temp_path = "temp.wav"
-        audio.export(temp_path, format="wav")
-        return temp_path
-    except Exception as e:
-        st.error(f"Error downloading audio: {e}")
-        return None
+        with requests.get(url, stream=True, timeout=30) as r:
+            r.raise_for_status()
+            with open(file_path, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+
+        print(f"✅ Downloaded successfully: {file_path}")
+        return file_path
+
+    except requests.exceptions.RequestException as e:
+        raise ValueError(f"❌ Failed to download audio: {e}")
+
 
 def generate_with_llm(prompt, context):
     # Combine context + user prompt manually
@@ -187,6 +215,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
