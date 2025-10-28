@@ -179,6 +179,7 @@ else:
         audio_path = download_audio_from_url(audio_url)
         if audio_path:
             st.success("Audio downloaded successfully!")
+            audio_file_path = audio_path
 
 
 # ------------------------------
@@ -215,6 +216,7 @@ else:
 # ------------------------------
 if audio_file_path and os.path.exists(audio_file_path):
     os.remove(audio_file_path)
+
 
 
 
